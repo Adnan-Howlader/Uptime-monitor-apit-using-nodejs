@@ -24,6 +24,10 @@ Decoder=new StringDecoder('utf-8');
 
 var read_data='';
 
+const routes=require('../routes');
+
+const {notFoundHandler}=require('../handlers/routeHandlers/notFoundHandler');
+
 
 //app scaffolding
 
@@ -43,6 +47,8 @@ handler.handleReqRes=(req,res)=>{
 
     console.log('trimmedpathname ',trimmedPathname);
 
+   
+
 
     //check the method
     const method=req.method.toLowerCase();
@@ -55,6 +61,36 @@ handler.handleReqRes=(req,res)=>{
      //get the metadata of the request
      const headers=req.headers;
      console.log('headers ',headers);
+
+     //requested properties
+
+    const requestProperties={
+            parsedURl,
+            trimmedPathname,
+            method,
+            queryStringObject,
+            headers,
+        }
+
+
+
+
+
+      //get choosen handler
+    const choosenHandler=routes[trimmedPathname]?routes[trimmedPathname]:notFoundHandler;
+
+    choosenHandler(requestProperties,(statusCode,payload)=>{
+        statusCode=typeof(statusCode)=='number'?statusCode:500;
+        payload=typeof(payload)=='object'?payload:{};
+
+        const payloadString=JSON.stringify(payload);//convert payload to string
+
+        res.writeHead(statusCode);
+        res.end(payloadString);
+
+    });
+
+
      req.on('data',(buffer)=>{
          read_data+=Decoder.write(buffer);//decodes the buffer and adds to read_data
      })
@@ -66,6 +102,8 @@ handler.handleReqRes=(req,res)=>{
          res.end('welcome user');
      
      });
+
+    
 
 };
 

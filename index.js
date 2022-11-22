@@ -15,9 +15,7 @@ const handler=require('./helpers/handleReqRes');
 
 const http = require('http');
 
-const routes=require('./routes');
 
-const {notFoundHandler}=require('./handlers/routeHandlers/notFoundHandler');
 
 
 //app scaffolding
