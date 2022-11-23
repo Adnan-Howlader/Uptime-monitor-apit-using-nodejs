@@ -79,16 +79,7 @@ handler.handleReqRes=(req,res)=>{
       //get choosen handler
     const choosenHandler=routes[trimmedPathname]?routes[trimmedPathname]:notFoundHandler;
 
-    choosenHandler(requestProperties,(statusCode,payload)=>{
-        statusCode=typeof(statusCode)=='number'?statusCode:500;
-        payload=typeof(payload)=='object'?payload:{};
-
-        const payloadString=JSON.stringify(payload);//convert payload to string
-
-        res.writeHead(statusCode);
-        res.end(payloadString);
-
-    });
+  
 
 
      req.on('data',(buffer)=>{
@@ -97,7 +88,19 @@ handler.handleReqRes=(req,res)=>{
 
      req.on('end',()=>{
          read_data+=Decoder.end();
-         console.log('read_data ',read_data);
+
+
+         choosenHandler(requestProperties,(statusCode,payload)=>{
+            statusCode=typeof(statusCode)=='number'?statusCode:500;
+            payload=typeof(payload)=='object'?payload:{};
+    
+            const payloadString=JSON.stringify(payload);//convert payload to string
+    
+            res.writeHead(statusCode);
+            res.end(payloadString);
+    
+        });
+         
          read_data='';
          res.end('welcome user');
      

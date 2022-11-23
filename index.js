@@ -15,6 +15,8 @@ const handler=require('./helpers/handleReqRes');
 
 const http = require('http');
 
+const environment=require('./handlers/routeHandlers/environments');
+
 
 
 
@@ -30,9 +32,10 @@ app.config = {port:3000,};
 app.createServer = () => {
 
     const server=http.createServer(app.handleRequest);
-
-    server.listen(app.config.port,()=>{
-        console.log("listening at port ");
+    
+    server.listen(environment.port,()=>{
+        console.log("mode",environment.envName);
+        console.log("listening at port ",environment.port);
     });
 
 
