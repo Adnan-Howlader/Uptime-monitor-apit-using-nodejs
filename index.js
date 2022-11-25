@@ -38,7 +38,7 @@ data.read('test','test',(msg)=>{
 );
 
 
-data.update('test','test',{'name':'ayman'},(msg)=>{
+data.update('test','test',{'name':'anas'},(msg)=>{
 
     console.log(msg);
 });
