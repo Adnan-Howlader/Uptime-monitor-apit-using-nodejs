@@ -17,13 +17,32 @@ const http = require('http');
 
 const environment=require('./handlers/routeHandlers/environments');
 
-
+const data=require('./lib/data');
 
 
 //app scaffolding
 const app = {
     
 };
+
+//temporary code
+data.create('test','test',{'name':'adnan'},(msg)=>{
+    console.log(msg);
+    });
+
+
+
+data.read('test','test',(msg)=>{
+    console.log(msg);
+    }
+);
+
+
+data.update('test','test',{'name':'ayman'},(msg)=>{
+
+    console.log(msg);
+});
+    
 
 //configuration
 app.config = {port:3000,};
@@ -40,6 +59,8 @@ app.createServer = () => {
 
 
 }
+
+
 
 //handle requests
 app.handleRequest=handler.handleReqRes;
