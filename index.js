@@ -33,15 +33,26 @@ data.create('test','test',{'name':'adnan'},(msg)=>{
 
 
 data.read('test','test',(msg)=>{
+    
     console.log(msg);
     }
 );
 
 
-data.update('test','test',{'name':'anas'},(msg)=>{
 
+
+
+
+
+data.update('test','test',{'name':'anas','age':'20'},(msg)=>{
+    
     console.log(msg);
 });
+
+// data.delete('test','test',(msg)=>{
+
+//     console.log(msg)
+// })
     
 
 //configuration
